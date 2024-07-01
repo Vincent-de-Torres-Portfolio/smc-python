@@ -895,8 +895,13 @@ def main():
     print_message("Thank you for playing!", ANSI_BLUE)
 
 if __name__ == "__main__":
-    main()```
+    main()
+    
+    
+```
+
 
 ![guessing_game_loop.py image](images/loop2.png)
+
 ![guessing_game_loop.py image](images/loop1.png)
 
