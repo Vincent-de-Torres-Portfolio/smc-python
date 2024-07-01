@@ -1,11 +1,20 @@
 """
-HW1: Triangle Calculator
-filename: triangle.py
-gist: This script calculates the area, perimeter, and total surface area of a triangle.
-      It prompts users for triangle dimensions, handles units, and displays step-by-step calculations.
-
 Vincent de Torres
 CS87A-Summer 2024 | HW1
+
+Functions:
+- prompt_for_base(): Prompt user for the base of the triangle input.
+- prompt_for_triangle_input(): Prompt user for triangle dimensions (base and height) with optional units.
+- prompt_for_height(base_value, base_unit): Prompt user for the height of the triangle, optionally specifying units.
+- parse_input(input_str): Parse user input to extract base and height values with optional units.
+- validate_input(base_value, height_value): Validate that both base and height values are positive.
+- calculate_triangle_area(base, height): Calculate the area of the triangle given base and height.
+- calculate_triangle_perimeter(base, height): Calculate the perimeter of the triangle given base and height.
+- calculate_total_surface_area(area, perimeter): Calculate the total surface area of the triangle.
+- exit_program(): Exit the program gracefully.
+- print_line(): Print a decorative line for visual separation in output.
+- main(): Main function to orchestrate the calculation and display of triangle properties.
+
 """
 
 import math
@@ -14,33 +23,30 @@ import os
 
 def prompt_for_base():
     """
-    Prompts the user to enter the base of the triangle.
-
+    Prompt user for the base of the triangle input.
+    
     Returns:
-    - tuple: A tuple containing (base_value, base_unit).
+    - base_value (float): The base length of the triangle.
+    - base_unit (str or None): The optional unit of measurement for the base.
     """
-    triangle_puns = [
-        "Looks like you're triangulating the wrong input! Please enter a number for the base.",
-        "Oops, something went acute! Enter the base as a number, please.",
-        "Don't be a square! Enter a positive number for the base."
-    ]
-
     while True:
         base_str = input("Enter base of the triangle: ")
         try:
             base_value = float(base_str)
             return base_value, None  # No unit provided initially
         except ValueError:
-            print(triangle_puns[1])
+            print("Oops, something went acute! Enter the base as a number, please.")
 
 
 def prompt_for_triangle_input():
     """
-    Prompts the user to enter base and optionally height of the triangle.
-
+    Prompt user for triangle dimensions (base and height) with optional units.
+    
     Returns:
-    - tuple: A tuple containing (base_value, base_unit, height_value, height_unit).
-             If parsing fails or values are invalid, returns (None, None, None, None).
+    - base_value (float): The base length of the triangle.
+    - base_unit (str or None): The optional unit of measurement for the base.
+    - height_value (float): The height of the triangle.
+    - height_unit (str or None): The optional unit of measurement for the height.
     """
     while True:
         input_str = input(
@@ -49,7 +55,6 @@ def prompt_for_triangle_input():
         if input_str.lower() == 'q':
             exit_program()
 
-        # Parse input
         base_value, base_unit, height_value, height_unit = parse_input(input_str)
         if base_value is None:
             continue
@@ -58,9 +63,7 @@ def prompt_for_triangle_input():
             print(
                 'Warning: Inputs do not have the same units of measurement. Please verify your input or perform conversions for accurate results.')
 
-        # If both base and height are provided, return immediately
         if height_value is not None:
-            # Check if units are different
             if base_unit and height_unit and base_unit.strip().lower() != height_unit.strip().lower():
                 confirm = input(
                     f"Units for base ({base_unit}) and height ({height_unit}) are different. Continue? (Y/N): ")
@@ -69,7 +72,6 @@ def prompt_for_triangle_input():
 
             return base_value, base_unit, height_value, height_unit
 
-        # If only base is provided, prompt to confirm it's the base, then for height
         confirm = input(f"Is {base_value} {base_unit if base_unit else 'units'} the base? (Y/N): ")
         if confirm.lower() == 'y':
             height_value, height_unit = prompt_for_height(base_value, base_unit)
@@ -80,38 +82,37 @@ def prompt_for_triangle_input():
 
 def prompt_for_height(base_value, base_unit):
     """
-    Prompts the user to enter the height of the triangle.
-
+    Prompt user for the height of the triangle, optionally specifying units.
+    
     Args:
-    - base_value (float): Base value of the triangle.
-    - base_unit (str): Unit of measurement for the base.
-
+    - base_value (float): The base length of the triangle.
+    - base_unit (str or None): The optional unit of measurement for the base.
+    
     Returns:
-    - tuple: A tuple containing (height_value, height_unit).
+    - height_value (float): The height of the triangle.
+    - height_unit (str or None): The optional unit of measurement for the height.
     """
-    triangle_puns = [
-        "Oops, something went acute! Enter height as a number, please."
-    ]
-
     while True:
         height_str = input(f"Enter height of the triangle (in {base_unit if base_unit else 'units'}): ")
         try:
             height_value = float(height_str)
             return height_value, None  # No unit provided initially
         except ValueError:
-            print(triangle_puns[0])
+            print("Oops, something went acute! Enter height as a number, please.")
 
 
 def parse_input(input_str):
     """
-    Parses the input string to extract base, base unit, height, and height unit.
-
+    Parse user input to extract base and height values with optional units.
+    
     Args:
-    - input_str (str): Input string containing base and height values (with optional units).
-
+    - input_str (str): User input string containing base and optionally height with optional units.
+    
     Returns:
-    - tuple: A tuple containing (base_value, base_unit, height_value, height_unit).
-             If parsing fails, returns (None, None, None, None).
+    - base_value (float or None): The extracted base length of the triangle.
+    - base_unit (str or None): The optional unit of measurement for the base.
+    - height_value (float or None): The extracted height of the triangle.
+    - height_unit (str or None): The optional unit of measurement for the height.
     """
     try:
         parts = input_str.split()
@@ -140,80 +141,80 @@ def parse_input(input_str):
 
 def validate_input(base_value, height_value):
     """
-    Validates the input values for base and height of a triangle.
-    Checks if both values are positive numbers.
-
+    Validate that both base and height values are positive.
+    
     Args:
-    - base_value (float): Base value of the triangle.
-    - height_value (float): Height value of the triangle.
-
+    - base_value (float): The base length of the triangle.
+    - height_value (float): The height of the triangle.
+    
     Returns:
-    - bool: True if both values are positive numbers, False otherwise.
+    - bool: True if both base and height are positive, False otherwise.
     """
-    if base_value > 0 and height_value > 0:
-        return True
-    else:
-        return False
+    return base_value > 0 and height_value > 0
 
 
 def calculate_triangle_area(base, height):
     """
-    Calculates the area of a triangle given its base and height.
-
+    Calculate the area of the triangle given base and height.
+    
     Args:
-    - base (float): Base of the triangle.
-    - height (float): Height of the triangle.
-
+    - base (float): The base length of the triangle.
+    - height (float): The height of the triangle.
+    
     Returns:
-    - float: Area of the triangle.
+    - float: The calculated area of the triangle.
     """
-    area = 0.5 * base * height
-    return area
+    return 0.5 * base * height
 
 
 def calculate_triangle_perimeter(base, height):
     """
-    Calculates the perimeter of a triangle given its base and height.
-    Uses the Pythagorean theorem to find the hypotenuse as the perimeter.
-
+    Calculate the perimeter of the triangle given base and height.
+    
     Args:
-    - base (float): Base of the triangle.
-    - height (float): Height of the triangle.
-
+    - base (float): The base length of the triangle.
+    - height (float): The height of the triangle.
+    
     Returns:
-    - float: Perimeter of the triangle.
+    - float: The calculated perimeter of the triangle.
     """
-    perimeter = base + 2 * math.sqrt((base / 2) ** 2 + height ** 2)
-    return perimeter
+    return base + 2 * math.sqrt((base / 2) ** 2 + height ** 2)
 
 
 def calculate_total_surface_area(area, perimeter):
     """
-    Calculates the Total Surface Area (TSA) of a triangle,
-    which is the sum of its area and perimeter.
-
+    Calculate the total surface area of the triangle.
+    
     Args:
-    - area (float): Area of the triangle.
-    - perimeter (float): Perimeter of the triangle.
-
+    - area (float): The area of the triangle.
+    - perimeter (float): The perimeter of the triangle.
+    
     Returns:
-    - float: Total Surface Area (TSA) of the triangle.
+    - float: The calculated total surface area of the triangle.
     """
-    tsa = area + perimeter
-    return tsa
+    return area + perimeter
 
 
 def exit_program():
+    """
+    Exit the program gracefully.
+    """
     print("Leaving so soon? Remember, geometry shapes our world!")
     import sys
     sys.exit()
 
 
 def print_line():
+    """
+    Print a decorative line for visual separation in output.
+    """
     print('⧦' * 95)
 
 
 def main():
+    """
+    Main function to orchestrate the calculation and display of triangle properties.
+    """
     os.system('clear')
 
     while True:
@@ -223,13 +224,11 @@ def main():
             print("Exiting...")
             break
 
-        # Calculate area and perimeter
         if validate_input(base, height):
             area = calculate_triangle_area(base, height)
             perimeter = calculate_triangle_perimeter(base, height)
             tsa = calculate_total_surface_area(area, perimeter)
 
-            # Print triangle details
             print_line()
             print("◺ TRIANGLE")
             print_line()

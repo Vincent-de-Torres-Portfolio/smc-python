@@ -1,3 +1,14 @@
+"""
+Vincent de Torres
+CS87A-Summer 2024
+
+Functions:
+- print_initials(): Prints a decorative initials pattern.
+- modify_grid(grid, color): Modifies the grid by replacing characters and adding color escape sequences.
+- animate(grid, colors): Animates the grid with changing colors.
+- combine_lines(grid, colors): Combines each line in the grid with all color variations into a single line.
+- clear(): Clears the terminal screen
+"""
 import time,os
 def print_initials():
     print("\n")
@@ -95,21 +106,6 @@ if __name__ == "__main__":
         "          ░░          ░░          ░░          ",
     ]
 
-    grid2 = [
-        "                   ░░ ░░ ░░                   ",
-        "             ░░ ░░ ░░ ░░ ░░ ░░ ░░             ",
-        "          ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░          ",
-        "          ░░ ░█ ▒▒ █░ ░░ ░░ ░░ ░█ ▒▒ █░       ",
-        "       ░░ ░░ ██ ██ ██ ░░ ░░ ░░ ██ ██ █░       ",
-        "       ░░ ░░ ██ ██ ██ ░░ ░░ ░░ ██ ██ █░       ",
-        "       ░░ ░░ ░█ ██ █░ ░░ ░░ ░░ ░█ ██ █░       ",
-        "       ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░       ",
-        "       ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░       ",
-        "       ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░       ",
-        "       ░░ ░░ ░░    ░░ ░░ ░░    ░░ ░░ ░░       ",
-        "        ░ ░░ ░      ░ ░░ ░      ░ ░░ ░        ",
-        "          ░░          ░░          ░░          ",
-    ]
 
     colors = [
         '\033[95m',   # Pink
@@ -119,10 +115,11 @@ if __name__ == "__main__":
     ]
 
     print_initials()
-    animate(grid2,colors)
 
 
 
-    combined_grid = combine_lines(grid2, colors)
-    for line in combined_grid:
-        print(line)
+    # combined_grid = combine_lines(grid, colors)
+    # for line in combined_grid:
+    #     print(line)
+
+    animate(grid,colors)

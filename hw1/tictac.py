@@ -1,4 +1,22 @@
+"""
+ Vincent de Torres
+CS87A-Summer 2024 
+
+This program demonstrates printing tic-tac-toe boards with scaled spacing between characters.
+
+Functions:
+- print_tic_tac_toe_board(board, scale): Print a tic-tac-toe board with scaled spacing between characters.
+
+"""
+
 def print_tic_tac_toe_board(board, scale):
+    """
+    Print a tic-tac-toe board with scaled spacing between characters.
+    
+    Args:
+    - board (list of lists): The tic-tac-toe board represented as a 2D list of characters ('X', 'O', or other).
+    - scale (int): The scaling factor for spacing between characters.
+    """
     size = len(board)
     for i in range(size):
         row_str = ''
@@ -33,13 +51,14 @@ def main():
         ]
     ]
 
-    # Define the scale for spacing between characters
-    scale = 3  # Adjust as needed for spacing
+    # Define the scales for spacing between characters
+    scales = [1, 2, 3]  # Adjust as needed for spacing
 
-    # Print each board with uniform spacing
+    # Print each board with increasing spacing
     for i, board in enumerate(boards):
-        print(f"Board {i + 1} (Scale {scale*i}):")
-        print_tic_tac_toe_board(board, scale*i)
+        scale = scales[i]
+        print(f"Board {i + 1} (Scale {scale}):")
+        print_tic_tac_toe_board(board, scale)
 
 if __name__ == "__main__":
     main()
